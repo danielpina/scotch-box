@@ -9,11 +9,11 @@ Vagrant.configure("2") do |config|
     # https://github.com/mitchellh/vagrant/issues/1673#issuecomment-28288042
     config.ssh.shell = %{bash -c 'BASH_ENV=/etc/profile exec bash'}
     
-    if Vagrant.has_plugin? 'vagrant-hostmanager'
+    if Vagrant.has_plugin? 'vagrant-hostsupdater'
         config.vm.network "private_network", ip: "192.168.33.10"
         config.vm.hostname = project_name + ".dev"
     else
-        fail_with_message "vagrant-hostmanager missing, please install the plugin with this command:\nvagrant plugin install vagrant-hostsupdater"
+        fail_with_message "vagrant-hostsupdater missing, please install the plugin with this command:\nvagrant plugin install vagrant-hostsupdater"
     end
 
     config.vm.box = "scotch/box"
