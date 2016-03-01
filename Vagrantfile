@@ -8,6 +8,7 @@ Vagrant.configure("2") do |config|
     # Fix for: "stdin: is not a tty"
     # https://github.com/mitchellh/vagrant/issues/1673#issuecomment-28288042
     config.ssh.shell = %{bash -c 'BASH_ENV=/etc/profile exec bash'}
+    config.ssh.shell = %{bash -c '/etc/init.d/nfs stop'}
     
     if Vagrant.has_plugin? 'vagrant-hostmanager'
         config.vm.network "private_network", ip: "192.168.33.10"
@@ -20,7 +21,7 @@ Vagrant.configure("2") do |config|
     # config.vm.synced_folder ".", "/var/www", :mount_options => ["dmode=777", "fmode=666"]
     
     # Optional NFS. Make sure to remove other synced_folder line too
-    config.vm.synced_folder ".", "/var/www",  type: "nfs", nfs_udp: false, :nfs => { :mount_options => ["dmode=777","fmode=666"] }
+    config.vm.synced_folder ".", "/var/www",  :nfs => { :mount_options => ["dmode=777","fmode=666"] }
     
     config.vm.provision "shell", inline: <<-SHELL
         # Modify vhost to load the main www dir, not the public subdir.
