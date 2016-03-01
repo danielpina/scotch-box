@@ -8,7 +8,6 @@ Vagrant.configure("2") do |config|
     # Fix for: "stdin: is not a tty"
     # https://github.com/mitchellh/vagrant/issues/1673#issuecomment-28288042
     config.ssh.shell = %{bash -c 'BASH_ENV=/etc/profile exec bash'}
-    config.ssh.shell = %{bash -c '/etc/init.d/nfs stop'}
     
     if Vagrant.has_plugin? 'vagrant-hostmanager'
         config.vm.network "private_network", ip: "192.168.33.10"
